@@ -1,0 +1,111 @@
+@import "compass/css3"
+
+$green: #B0DE6B
+$blue: #76C9DE
+$dark-gray: #948F8F
+$light-gray: #ddd
+
+body
+  background: $light-gray
+
+*
+  box-sizing: border-box
+
+.dnd-example
+  display: flex
+  flex-wrap: wrap
+  width: 740px
+  padding: 30px
+  margin: 100px auto 0
+  background: white
+  font-family: sans-serif
+  font-size: 19px
+  text-align: center
+
+  &,
+  div
+    border-radius: 10px
+    user-select: none
+
+  &.dragging *
+    cursor: grabbing
+
+.drop-description
+  width: 100%
+  font-weight: 300
+  margin: 1em 0 0
+
+.dnd-source-objects
+  margin-right: 30px
+
+.dnd-source-object
+  width: 240px
+  line-height: 38px
+  border-radius: 10px
+  font-weight: bold
+  font-size: 24px
+  color: rgba(0,0,0,.2)
+  cursor: grab
+
+  &:not(:last-child)
+    margin: 0 0 10px
+
+  &.green
+    background: $green
+
+  &.blue
+    background: $blue
+
+.dnd-drop-targets
+  background: $dark-gray
+  flex: 1
+  padding: 15px
+
+.dnd-drop-target
+  position: relative
+  background: white
+  line-height: 50px
+  font-weight: 300
+  overflow: hidden
+
+  &:not(:last-child)
+    margin: 0 0 10px
+
+  &.green:before,
+  &.blue:after
+    content: ''
+    position: absolute
+    left: 0
+    width: 20px
+    height: 100%
+    background: $green
+
+  &.blue:after
+    background: $blue
+
+  &.green.blue:after
+    left: 20px
+
+  &.active.hover
+    &:after,
+    &:before
+      display: none
+
+  &.active-green.active
+    box-shadow: 0 0 0 3px $dark-gray, 0 0 0 4px $green
+    &.hover
+      background: $green
+
+  &.active-blue.active
+    box-shadow: 0 0 0 3px $dark-gray, 0 0 0 4px $blue
+    &.hover
+      background: $blue
+
+  &.disabled
+    opacity: .2
+    cursor: no-drop
+
+.dnd-draggable.dragging
+  z-index: 1
+  pointer-events: none
+  box-shadow: 0 2px 5px rgba(0,0,0,.8)
